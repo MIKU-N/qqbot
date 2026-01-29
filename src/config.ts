@@ -101,7 +101,6 @@ export function resolveQQBotAccount(
     apiProxy: accountConfig.apiProxy,
     config: accountConfig,
   };
-  };
 }
 
 /**

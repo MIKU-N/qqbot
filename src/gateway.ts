@@ -103,8 +103,13 @@ export async function startGateway(ctx: GatewayContext): Promise<void> {
       // WebSocket 地址替换（适配 Nginx 代理，让目标 API 收到的 IP 为中转 API 的 IP）
       let wsUrl = gatewayUrl;
       if (account.apiProxy) {
-        // 将 API 代理地址的协议转换为 WebSocket 协议
-        wsUrl = account.apiProxy.replace(/^https?:\/\//, (m) => m === "https://" ? "wss://" : "ws://");
+        // 从代理地址提取 host，保留 WebSocket 地址的路径和查询参数
+        const proxyUrl = new URL(account.apiProxy);
+        const gatewayUrlObj = new URL(gatewayUrl);
+        const protocol = proxyUrl.protocol === "https:" ? "wss:" : "ws:";
+        const host = proxyUrl.host;
+        const pathAndQuery = gatewayUrlObj.pathname + gatewayUrlObj.search;
+        wsUrl = `${protocol}//${host}${pathAndQuery}`;
         log?.info(`[qqbot:${account.accountId}] WebSocket URL before proxy: ${gatewayUrl}`);
         log?.info(`[qqbot:${account.accountId}] WebSocket URL after proxy: ${wsUrl}`);
       }

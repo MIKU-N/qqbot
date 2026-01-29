@@ -19,6 +19,8 @@ export interface ResolvedQQBotAccount {
   secretSource: "config" | "file" | "env" | "none";
   /** 系统提示词 */
   systemPrompt?: string;
+  /** API 代理基础 URL */
+  apiProxy?: string;
   config: QQBotAccountConfig;
 }
 
@@ -35,6 +37,8 @@ export interface QQBotAccountConfig {
   allowFrom?: string[];
   /** 系统提示词，会添加在用户消息前面 */
   systemPrompt?: string;
+  /** API 代理基础 URL（中转服务器地址，所有请求都会经过此服务器） */
+  apiProxy?: string;
 }
 
 /**

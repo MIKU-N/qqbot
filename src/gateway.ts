@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 import type { ResolvedQQBotAccount, WSPayload, C2CMessageEvent, GuildMessageEvent, GroupMessageEvent } from "./types.js";
-import { getAccessToken, getGatewayUrl, sendC2CMessage, sendChannelMessage, sendGroupMessage, clearTokenCache } from "./api.js";
+import { getAccessToken, getGatewayUrl, sendC2CMessage, sendChannelMessage, sendGroupMessage, clearTokenCache, setApiProxy } from "./api.js";
 import { getQQBotRuntime } from "./runtime.js";
 
 // QQ Bot intents
@@ -38,6 +38,9 @@ export async function startGateway(ctx: GatewayContext): Promise<void> {
   if (!account.appId || !account.clientSecret) {
     throw new Error("QQBot not configured (missing appId or clientSecret)");
   }
+
+  // 设置 API 代理（如果配置了）
+  setApiProxy(account.apiProxy ?? null);
 
   let reconnectAttempts = 0;
   let isAborted = false;

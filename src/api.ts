@@ -6,6 +6,14 @@ const API_BASE = "https://api.sgroup.qq.com";
 const TOKEN_URL = "https://bots.qq.com/app/getAppAccessToken";
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
+let apiProxy: string | null = null;
+
+/**
+ * 设置 API 代理 URL（如果设置了代理，所有请求都会经过此代理服务器）
+ */
+export function setApiProxy(proxyUrl: string | null): void {
+  apiProxy = proxyUrl;
+}
 
 /**
  * 获取 AccessToken（带缓存）
@@ -16,7 +24,8 @@ export async function getAccessToken(appId: string, clientSecret: string): Promi
     return cachedToken.token;
   }
 
-  const response = await fetch(TOKEN_URL, {
+  const tokenUrl = apiProxy ? `${apiProxy}/app/getAppAccessToken` : TOKEN_URL;
+  const response = await fetch(tokenUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ appId, clientSecret }),
@@ -78,7 +87,8 @@ export async function apiRequest<T = unknown>(
   path: string,
   body?: unknown
 ): Promise<T> {
-  const url = `${API_BASE}${path}`;
+  const baseUrl = apiProxy ?? API_BASE;
+  const url = `${baseUrl}${path}`;
   const options: RequestInit = {
     method,
     headers: {

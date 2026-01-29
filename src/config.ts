@@ -63,6 +63,7 @@ export function resolveQQBotAccount(
       dmPolicy: qqbot?.dmPolicy,
       allowFrom: qqbot?.allowFrom,
       systemPrompt: qqbot?.systemPrompt,
+      apiProxy: qqbot?.apiProxy,
     };
     appId = qqbot?.appId ?? "";
   } else {
@@ -97,7 +98,9 @@ export function resolveQQBotAccount(
     clientSecret,
     secretSource,
     systemPrompt: accountConfig.systemPrompt,
+    apiProxy: accountConfig.apiProxy,
     config: accountConfig,
+  };
   };
 }
 
@@ -107,7 +110,7 @@ export function resolveQQBotAccount(
 export function applyQQBotAccountConfig(
   cfg: MoltbotConfig,
   accountId: string,
-  input: { appId?: string; clientSecret?: string; clientSecretFile?: string; name?: string }
+  input: { appId?: string; clientSecret?: string; clientSecretFile?: string; name?: string; apiProxy?: string }
 ): MoltbotConfig {
   const next = { ...cfg };
 
@@ -124,6 +127,7 @@ export function applyQQBotAccountConfig(
             ? { clientSecretFile: input.clientSecretFile }
             : {}),
         ...(input.name ? { name: input.name } : {}),
+        ...(input.apiProxy ? { apiProxy: input.apiProxy } : {}),
       },
     };
   } else {
@@ -144,6 +148,7 @@ export function applyQQBotAccountConfig(
                 ? { clientSecretFile: input.clientSecretFile }
                 : {}),
             ...(input.name ? { name: input.name } : {}),
+            ...(input.apiProxy ? { apiProxy: input.apiProxy } : {}),
           },
         },
       },

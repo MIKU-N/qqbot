@@ -98,9 +98,20 @@ export async function startGateway(ctx: GatewayContext): Promise<void> {
       const accessToken = await getAccessToken(account.appId, account.clientSecret);
       const gatewayUrl = await getGatewayUrl(accessToken);
 
-      log?.info(`[qqbot:${account.accountId}] Connecting to ${gatewayUrl}`);
+      log?.info(`[qqbot:${account.accountId}] Gateway URL from API: ${gatewayUrl}`);
 
-      const ws = new WebSocket(gatewayUrl);
+      // WebSocket 地址替换（适配 Nginx 代理，让目标 API 收到的 IP 为中转 API 的 IP）
+      let wsUrl = gatewayUrl;
+      if (account.apiProxy) {
+        // 将 API 代理地址的协议转换为 WebSocket 协议
+        wsUrl = account.apiProxy.replace(/^https?:\/\//, (m) => m === "https://" ? "wss://" : "ws://");
+        log?.info(`[qqbot:${account.accountId}] WebSocket URL before proxy: ${gatewayUrl}`);
+        log?.info(`[qqbot:${account.accountId}] WebSocket URL after proxy: ${wsUrl}`);
+      }
+
+      log?.info(`[qqbot:${account.accountId}] Connecting to ${wsUrl}`);
+
+      const ws = new WebSocket(wsUrl);
       currentWs = ws;
 
       const pluginRuntime = getQQBotRuntime();

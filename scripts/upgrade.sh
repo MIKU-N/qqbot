@@ -4,8 +4,8 @@
 
 set -e
 
-CLAWDBOT_DIR="$HOME/.clawdbot"
-CONFIG_FILE="$CLAWDBOT_DIR/clawdbot.json"
+CLAWDBOT_DIR="$HOME/.openclaw"
+CONFIG_FILE="$CLAWDBOT_DIR/openclaw.json"
 EXTENSION_DIR="$CLAWDBOT_DIR/extensions/qqbot"
 
 echo "=== QQBot 插件升级脚本 ==="
@@ -57,6 +57,6 @@ echo "=== 清理完成 ==="
 echo ""
 echo "接下来请执行以下命令重新安装插件:"
 echo "  cd /path/to/qqbot"
-echo "  clawdbot plugins install ."
-echo "  clawdbot channels add --channel qqbot --token \"AppID:AppSecret\""
-echo "  clawdbot gateway restart"
+echo "  openclaw plugins install ."
+echo "  openclaw channels add --channel qqbot --token \"AppID:AppSecret\""
+echo "  openclaw gateway restart"

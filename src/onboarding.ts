@@ -9,7 +9,7 @@ import type {
   ChannelOnboardingStatusContext,
   ChannelOnboardingConfigureContext,
   ChannelOnboardingResult,
-} from "clawdbot/plugin-sdk";
+} from "openclaw/plugin-sdk";
 import { listQQBotAccountIds, resolveQQBotAccount } from "./config.js";
 
 const DEFAULT_ACCOUNT_ID = "default";

@@ -1,4 +1,4 @@
-import type { ChannelPlugin } from "clawdbot/plugin-sdk";
+import type { ChannelPlugin } from "openclaw/plugin-sdk";
 import type { ResolvedQQBotAccount } from "./types.js";
 import { listQQBotAccountIds, resolveQQBotAccount, applyQQBotAccountConfig } from "./config.js";
 import { sendText } from "./outbound.js";

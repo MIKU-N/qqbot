@@ -19,7 +19,7 @@ QQ 官方机器人 API 的 Moltbot 渠道插件，支持 C2C 私聊、群聊 @�
 在插件目录下执行：
 
 ```bash
-clawdbot plugins install .
+openclaw plugins install .
 ```
 
 ## 配置
@@ -36,25 +36,25 @@ clawdbot plugins install .
 #### 方式一：交互式配置
 
 ```bash
-clawdbot channels add
+openclaw channels add
 # 选择 qqbot，按提示输入 Token
 ```
 
 #### 方式二：命令行配置
 
 ```bash
-clawdbot channels add --channel qqbot --token "AppID:AppSecret"
+openclaw channels add --channel qqbot --token "AppID:AppSecret"
 ```
 
 示例：
 
 ```bash
-clawdbot channels add --channel qqbot --token "102146862:xxxxxxxx"
+openclaw channels add --channel qqbot --token "102146862:xxxxxxxx"
 ```
 
 ### 3. 手动编辑配置（可选）
 
-也可以直接编辑 `~/.clawdbot/clawdbot.json`：
+也可以直接编辑 `~/.openclaw/openclaw.json`：
 
 ```json
 {
@@ -97,18 +97,18 @@ clawdbot channels add --channel qqbot --token "102146862:xxxxxxxx"
 
 后台启动
 ```bash
-clawdbot gateway restart
+openclaw gateway restart
 ```
 
 前台启动, 方便试试查看日志
 ```bash
-clawdbot gateway --port 18789 --verbose
+openclaw gateway --port 18789 --verbose
 ```
 
 ### CLI 配置向导
 
 ```bash
-clawdbot onboard
+openclaw onboard
 # 选择 QQ Bot 进行交互式配置
 ```
 
@@ -128,18 +128,18 @@ clawdbot onboard
 ./scripts/upgrade.sh
 
 # 重新安装插件
-clawdbot plugins install .
+openclaw plugins install .
 
 # 重新配置
-clawdbot channels add --channel qqbot --token "AppID:AppSecret"
+openclaw channels add --channel qqbot --token "AppID:AppSecret"
 
 # 重启网关
-clawdbot gateway restart
+openclaw gateway restart
 ```
 
 升级脚本会自动：
-- 删除 `~/.clawdbot/extensions/qqbot` 目录
-- 清理 `clawdbot.json` 中的 qqbot 相关配置
+- 删除 `~/.openclaw/extensions/qqbot` 目录
+- 清理 `openclaw.json` 中的 qqbot 相关配置
 
 ## 开发
 

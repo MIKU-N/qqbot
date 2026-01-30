@@ -338,9 +338,9 @@ export async function startGateway(ctx: GatewayContext): Promise<void> {
                 // 发送错误提示给用户
                 const errMsg = String(err);
                 if (errMsg.includes("401") || errMsg.includes("key") || errMsg.includes("auth")) {
-                  await sendErrorMessage("[ClawdBot] 大模型 API Key 可能无效，请检查配置");
+                  await sendErrorMessage("[OpenClaw] 大模型 API Key 可能无效，请检查配置");
                 } else {
-                  await sendErrorMessage(`[ClawdBot] 处理消息时出错: ${errMsg.slice(0, 100)}`);
+                  await sendErrorMessage(`[OpenClaw] 处理消息时出错: ${errMsg.slice(0, 100)}`);
                 }
               },
             },
@@ -356,12 +356,12 @@ export async function startGateway(ctx: GatewayContext): Promise<void> {
             }
             if (!hasResponse) {
               log?.error(`[qqbot:${account.accountId}] No response within timeout`);
-              await sendErrorMessage("[ClawdBot] 未收到响应，请检查大模型 API Key 是否正确配置");
+              await sendErrorMessage("[OpenClaw] 未收到响应，请检查大模型 API Key 是否正确配置");
             }
           }
         } catch (err) {
           log?.error(`[qqbot:${account.accountId}] Message processing failed: ${err}`);
-          await sendErrorMessage(`[ClawdBot] 处理消息失败: ${String(err).slice(0, 100)}`);
+          await sendErrorMessage(`[OpenClaw] 处理消息失败: ${String(err).slice(0, 100)}`);
         }
       };
 
